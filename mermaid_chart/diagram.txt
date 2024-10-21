@@ -1,0 +1,11 @@
+---
+config:
+  layout: fixed
+---
+flowchart TD
+    A["NewsAPI"] -- Ingest Articles --> B["Cloud Function"]
+    B -- Stores Articles --> C["BigQuery"]
+    B -- Triggered Periodically --> D["Cloud Scheduler"]
+    C -- Fetch Articles for Analysis --> E["Cloud Function"]
+    E -- Stores Bias Analysis --> C
+    C -- Fetch Data for Display --> F["Streamlit app"]
