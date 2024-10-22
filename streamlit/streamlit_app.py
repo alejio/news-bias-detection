@@ -52,10 +52,19 @@ st.markdown("""
         padding-bottom: 10px;
     }
     .stMetric {
-        background-color: #f0f2f6;
+        background-color: transparent;
+        border: 1px solid #e0e0e0;
         border-radius: 5px;
         padding: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .stMetric .metric-label {
+        color: #3366cc;
+        font-weight: bold;
+    }
+    .stMetric .metric-value {
+        color: #1E1E1E;
+        font-size: 1.5em;
     }
 </style>
 """, unsafe_allow_html=True)
