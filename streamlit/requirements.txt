@@ -4,3 +4,6 @@ numpy
 plotly
 google-cloud-bigquery
 db-dtypes
+wordcloud
+matplotlib
+scikit-learn

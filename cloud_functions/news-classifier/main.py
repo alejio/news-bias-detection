@@ -50,10 +50,9 @@ def fetch_uncategorized_data():
     Fetch uncategorized articles from BigQuery.
     """
     query = """
-        SELECT url, content
+        SELECT url, description
         FROM `news-bias-detection-439208.news_data.articles`
         WHERE category IS NULL
-        LIMIT 100
     """
     query_job = client.query(query)
     rows = query_job.result().to_dataframe()  # Load results into a pandas DataFrame
@@ -61,10 +60,10 @@ def fetch_uncategorized_data():
 
 def classify_content(row):
     """
-    Classify content using zero-shot classification.
+    Classify description using zero-shot classification.
     """
     labels = ["AI Boomer", "AI Doomer"]
-    result = classifier(row['content'], labels)
+    result = classifier(row['description'], labels)
     # Return the most likely label (highest score) and its corresponding score
     return result['labels'][0], result['scores'][0]  # (category, score)
 
