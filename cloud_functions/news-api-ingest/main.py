@@ -3,6 +3,7 @@ import json
 from google.cloud import bigquery
 import os
 from datetime import datetime, timedelta
+from google.cloud.exceptions import NotFound
 
 
 # Initialise News API
@@ -43,20 +44,56 @@ def fetch_news():
     return all_articles
 
 
+def get_existing_urls():
+    """
+    Fetch existing URLs from BigQuery table
+    """
+    query = f"""
+    SELECT DISTINCT url
+    FROM `{client.project}.{dataset_id}.{table_id}`
+    """
+    query_job = client.query(query)
+    results = query_job.result()
+    return {row.url for row in results}
+
+
 def insert_new_rows_into_bigquery(rows):
     """
     Insert only new rows of articles into BigQuery
     """
     table_ref = f"{client.project}.{dataset_id}.{table_id}"
-    table = client.get_table(table_ref)
+    
+    try:
+        table = client.get_table(table_ref)
+    except NotFound:
+        # If the table doesn't exist, create it
+        schema = [
+            bigquery.SchemaField("source", "STRING"),
+            bigquery.SchemaField("author", "STRING"),
+            bigquery.SchemaField("title", "STRING"),
+            bigquery.SchemaField("description", "STRING"),
+            bigquery.SchemaField("url", "STRING"),
+            bigquery.SchemaField("published_at", "TIMESTAMP"),
+            bigquery.SchemaField("content", "STRING"),
+            bigquery.SchemaField("category", "STRING"),
+            bigquery.SchemaField("category_score", "FLOAT"),
+        ]
+        table = bigquery.Table(table_ref, schema=schema)
+        table = client.create_table(table)
 
-    # Attempt to insert rows
-    errors = client.insert_rows_json(table, rows)
+    existing_urls = get_existing_urls()
+    new_rows = [row for row in rows if row['url'] not in existing_urls]
+
+    if not new_rows:
+        print("No new articles to insert")
+        return True
+
+    errors = client.insert_rows_json(table, new_rows)
 
     if errors:
         print(f"Encountered errors while inserting rows: {errors}")
     else:
-        print(f"Inserted {len(rows)} rows into BigQuery")
+        print(f"Inserted {len(new_rows)} new rows into BigQuery")
 
     return len(errors) == 0
 

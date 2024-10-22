@@ -1,1 +1,7 @@
+functions-framework==3.*
 pandas
+google-cloud-bigquery
+torch
+torchvision
+transformers
+db-dtypes

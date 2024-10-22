@@ -1,0 +1,13 @@
+gcloud functions deploy news-classifier \
+  --gen2 \
+  --runtime=python312 \
+  --region=europe-west2 \
+  --source=. \
+  --entry-point=classify_articles \
+  --trigger-http \
+  --allow-unauthenticated \
+  --memory=4096MB \
+  --cpu=2 \
+  --timeout=600s \
+  --service-account=news-bias-detection-439208@appspot.gserviceaccount.com \
+  --set-env-vars=LOG_EXECUTION_ID=true
