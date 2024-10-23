@@ -4,7 +4,7 @@
 
 This project aims to detect bias in news articles related to Artificial Intelligence (AI) by analyzing the content and structure of the articles. It uses a data-driven approach to understand the narrative shift towards AI in news media, categorizing articles as either "AI Boomer" (optimistic) or "AI Doomer" (pessimistic).
 
-![Diagram of workflow](news_bias_mvp.png)
+![Diagram of workflow](news_bias_mvp_resized_v2.png)
 
 ## Project Structure
 
