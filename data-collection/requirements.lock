@@ -20,12 +20,17 @@ charset-normalizer==3.4.1
     # via requests
 click==8.1.8
     # via black
+    # via typer
 coverage==7.6.10
     # via pytest-cov
 idna==3.10
     # via requests
 iniconfig==2.0.0
     # via pytest
+markdown-it-py==3.0.0
+    # via rich
+mdurl==0.1.2
+    # via markdown-it-py
 mypy-extensions==1.0.0
     # via black
 numpy==2.2.1
@@ -41,6 +46,8 @@ platformdirs==4.3.6
     # via black
 pluggy==1.5.0
     # via pytest
+pygments==2.18.0
+    # via rich
 pytest==8.3.4
     # via data-collection
     # via pytest-cov
@@ -55,12 +62,20 @@ pytz==2024.2
     # via pandas
 requests==2.32.3
     # via data-collection
+rich==13.9.4
+    # via typer
 ruff==0.8.4
     # via data-collection
+shellingham==1.5.4
+    # via typer
 six==1.17.0
     # via python-dateutil
 soupsieve==2.6
     # via beautifulsoup4
+typer==0.15.1
+    # via data-collection
+typing-extensions==4.12.2
+    # via typer
 tzdata==2024.2
     # via pandas
 urllib3==2.3.0
