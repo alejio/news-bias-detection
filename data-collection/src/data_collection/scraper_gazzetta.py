@@ -287,4 +287,4 @@ def list_bloggers():
    rprint(table)
 
 if __name__ == "__main__":
-   app()
+    app()
